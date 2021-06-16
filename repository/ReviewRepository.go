@@ -34,11 +34,6 @@ func (r *ReviewRepo) CreateNewReview(review *model.Review) int64 {
 
 func (r *ReviewRepo) InitData(connection string) {
 	fmt.Println("Connect to ", connection)
-	// r.CreateNewReview(&model.Review{
-	// 	BookId:  1,
-	// 	Comment: "ok",
-	// 	Rating:  3})
-
 }
 
 func (r *ReviewRepo) GetAllReviews() map[int64]*model.Review {
@@ -68,31 +63,4 @@ func (r *ReviewRepo) DeleteReviewById(Id int64) error {
 	} else {
 		return errors.New("review not found")
 	}
-}
-
-func (r *ReviewRepo) GetRatingByBookId(bookId int64) float32 {
-	var rating float32 = 0
-	var count int = 0
-	for _, review := range r.reviews {
-		if review.BookId == bookId {
-			rating += float32(review.Rating)
-			count++
-		}
-	}
-	return rating / float32(count)
-}
-
-func (r *ReviewRepo) AvgRating() (result map[int64]float32) {
-	sumRating := make(map[int64]int)
-	countRating := make(map[int64]int)
-	result = make(map[int64]float32)
-
-	for _, value := range r.reviews {
-		countRating[value.BookId]++
-		sumRating[value.BookId] += value.Rating
-	}
-	for key := range countRating {
-		result[key] = float32(sumRating[key]) / float32(countRating[key])
-	}
-	return result
 }

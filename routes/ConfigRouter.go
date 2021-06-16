@@ -27,6 +27,4 @@ func ConfigReviewRouter(router *fiber.Router) {
 	(*router).Post("/", controller.CreateReview)
 
 	(*router).Delete("/:id", controller.DeleteReviewById)
-
-	(*router).Get("/average/:id", controller.AvgRating)
 }

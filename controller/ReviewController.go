@@ -51,19 +51,3 @@ func DeleteReviewById(c *fiber.Ctx) error {
 	}
 
 }
-
-func AvgRating(c *fiber.Ctx) error {
-	id, _ := c.ParamsInt("id")
-
-	_, err := repo.Books.FindBookById(int64(id))
-
-	if err != nil {
-		return c.JSON(fiber.Map{
-			"message": "Not found book for this id",
-		})
-	}
-
-	result := repo.Reviews.AvgRating()
-
-	return c.JSON(result[int64(id)])
-}
